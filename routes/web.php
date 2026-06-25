@@ -1,0 +1,16 @@
+<?php
+
+use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\UserController;
+
+// Só acesso quem estiver autenticado pode acessar a rota '/'
+Route::middleware(['auth'])->group(function () {
+    Route::get('/', function () {
+    return view('home');
+    })->name('home');
+
+
+    Route::get('/users', [UserController::class,'index'])->name('users.index');
+    Route::get('/users/create', [UserController::class,'create'])->name('users.create');
+    Route::post('/users/create', [UserController::class,'store'])->name('users.store');
+});
