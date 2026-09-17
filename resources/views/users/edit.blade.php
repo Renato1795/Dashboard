@@ -1,15 +1,17 @@
 @extends('layouts.default')
 
-@section('page-title', 'Criar Usuário')
+@section('page-title', 'Editar Usuário')
 
 @section('content')
 
 {{-- // Formulário pego do bootstrap. Overview. --}}
-<form action="{{ route('users.store') }}" method="post">
+<form action="{{ route('users.update', $user) }}" method="post">
     @csrf
+    @method('PUT')
     <div class="mb-3">
     <label  class="form-label">Nome</label>
-    <input type="text" name="name" value="{{ old('name') }}" class="form-control @error('name') is-invalid @enderror"  aria-describedby="emailHelp">
+    {{-- Usa-se o ?? com senão. Caso o old('name') não exista, ele pega o $user->name. --}}
+    <input type="text" name="name" value="{{ old('name') ?? $user->name }}" class="form-control @error('name') is-invalid @enderror"  aria-describedby="emailHelp">
     @error('name')
         <div class="invalid-feedback">
             {{ $message }}
@@ -19,7 +21,7 @@
     </div>
     <div class="mb-3">
         <label for="exampleInputEmail1" class="form-label">Email address</label>
-        <input type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" id="exampleInputEmail1" aria-describedby="emailHelp">
+        <input type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') ?? $user->email }}" id="exampleInputEmail1" aria-describedby="emailHelp">
         @error('email')
         <div class="invalid-feedback">
             {{ $message }}
@@ -37,12 +39,12 @@
         @enderror
     </div>
 
-  
+
   {{-- <div class="mb-3">
     <label for="exampleInputPassword1" class="form-label">Password</label>
     <input type="password" class="form-control" id="exampleInputPassword1">
   </div> --}}
 
-  <button type="submit" class="btn btn-primary">Adicionar</button>
+  <button type="submit" class="btn btn-primary">Editar</button>
 </form>
 @endsection
