@@ -28,8 +28,11 @@
                     <td>{{ $user->name }}</td>
                     <td>{{ $user->email }}</td>
                     <td>
-                        <a href="" class="btn btn-danger btn-sm">Excluir</a>
-                        <a href="" class="btn btn-primary btn-sm">Editar</a>
+                        <form id="delete-form-{{ $user->id }}" action="{{ route('users.destroy', $user->id) }}" method="POST" style="display: none;">
+                            @csrf
+                            @method('DELETE')
+                        {{-- <a href="{{ route('users.destroy', $user->id) }}" class="btn btn-danger btn-sm" onclick="event.preventDefault(); if(confirm('Tem certeza que deseja excluir este usuário?')) { document.getElementById('delete-form-{{ $user->id }}').submit(); }">Excluir</a> --}}
+                        <a href="{{ route('users.edit', $user->id) }}" class="btn btn-primary btn-sm">Editar</a>
                     </td>
                 </tr>
             @endforeach

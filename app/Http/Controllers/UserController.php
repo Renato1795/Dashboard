@@ -38,8 +38,7 @@ class UserController extends Controller
 
     public function edit(User $user)
     {
-        /* dd($user); */
-    return view('users.edit', compact('user'));
+         return view('users.edit', compact('user'));
     }
 
     public function update(Request $request, User $user)
@@ -49,22 +48,25 @@ class UserController extends Controller
             'email' => 'required|email',
             'password' => 'exclude_if:password,null|min:6' // A senha é opcional, mas se fornecida, deve ter no mínimo 6 caracteres.
         ]);
+        // fill() preenche o modelo com os dados validados do formulário.
+        $user->fill($input);
+        $user->save();
 
-        /* dd($input); */
-
-        if (empty($input['password'])) {
+        /* if (empty($input['password'])) {
             unset($input['password']);
-        }
+        } */
 
-        $user->update($input);
-        return redirect()->route('users.index')
-            ->with('status', 'Usuário atualizado com sucesso!');
+        /* $user->update($input); */
+        return back()
+            /* ->route('users.index') */
+            ->with('status', 'Usuário editado com sucesso!');
     }
 
     public function destroy(User $user)
     {
         $user->delete();
-        return redirect()->route('users.index')
+        /* return redirect()->route('users.index') */
+        return back()
             ->with('status', 'Usuário excluído com sucesso!');
     }
 }

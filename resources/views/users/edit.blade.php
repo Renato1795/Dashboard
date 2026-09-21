@@ -5,7 +5,7 @@
 @section('content')
 
 {{-- // Formulário pego do bootstrap. Overview. --}}
-<form action="{{ route('users.update', $user) }}" method="post">
+<form action="{{ route('users.update', $user->id) }}" method="post">
     @csrf
     @method('PUT')
     <div class="mb-3">
