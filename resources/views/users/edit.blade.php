@@ -11,5 +11,7 @@
         </div>
     @endsession
     @include('users.parts.basic-details')
+    <br>
+    @include('users.parts.profile')
 
 @endsection

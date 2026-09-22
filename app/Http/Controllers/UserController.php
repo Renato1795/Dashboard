@@ -62,6 +62,25 @@ class UserController extends Controller
             ->with('status', 'Usuário editado com sucesso!');
     }
 
+    public function updateProfile(Request $request, User $user)
+    {
+        dd($request->all());
+        $input = $request->validate([
+            'name' => 'required',
+            'email' => 'required|email',
+            'type' => 'required|in:PF,PJ', // Validação para o campo "type"
+            'address' => 'nullable|string', // Validação para o campo "address"
+            'password' => 'exclude_if:password,null|min:6' // A senha é opcional, mas se fornecida, deve ter no mínimo 6 caracteres.
+        ]);
+
+        // fill() preenche o modelo com os dados validados do formulário.
+        $user->fill($input);
+        $user->save();
+
+        return back()
+            ->with('status', 'Perfil atualizado com sucesso!');
+    }
+
     public function destroy(User $user)
     {
         $user->delete();
