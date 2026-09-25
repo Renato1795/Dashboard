@@ -10,6 +10,7 @@
             {{$value}}
         </div>
     @endsession
+    {{-- {{ dd($user) }} --}}
     @include('users.parts.basic-details')
     <br>
     @include('users.parts.profile')
