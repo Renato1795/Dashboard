@@ -4,7 +4,9 @@
         @method('PUT')
         <div class="card-header">
             Dados básicos
-        <div class="card-body"></div>
+        <div class="card-body">
+
+        </div>
             <div class="mb-3">
             <label  class="form-label">Nome</label>
     {{-- Usa-se o "??" como senão. Caso o old('name') não exista, ele pega o $user->name. --}}

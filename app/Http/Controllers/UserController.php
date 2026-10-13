@@ -70,18 +70,19 @@ class UserController extends Controller
 
         $input = $request->validate([
             'type' => 'required', // Validação para o campo "type"
-            'address' => 'required', // Validação para o campo "address"
+            'address' => 'nullable',
         ]);
 
         // fill() preenche o modelo com os dados validados do formulário.
         $user->fill($input);
         $user->save();
 
-        // Método updateOrCreate() verifica se o perfil do usuário já existe. Se existir, ele atualiza; caso contrário, cria um novo perfil.
+        // Método updateOrCreate() verifica se o perfil do usuário já existe ('user_id' => $user->id]). Se existir, ele atualiza; caso contrário, cria um novo perfil.
         UserProfile::updateOrCreate(
-            ['user_id' => $user->id], // Condição para encontrar o perfil do usuário
+            ['user_id' => $user->id],
             $input // Dados validados do formulário
         );
+        // OU $user->profile()->updateOrCreate($input);
 
         return back()
             ->with('status', 'Perfil atualizado com sucesso!');
